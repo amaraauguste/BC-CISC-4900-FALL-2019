@@ -1,5 +1,6 @@
 
 /** 
+ * Amara Auguste
  * Used to create an API object which holds the names of
  * the images analyzed and the corresponding tags
  * provided by each API 
