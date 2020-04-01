@@ -1,5 +1,6 @@
 
-/** 
+/**
+ * Amara Auguste
  * Image Recognition API Evaluator:
  * Evaluates the API results from Gaurav Oberoi's Open Source tool --- Cloudy Vision, 
  *  to test the image labeling capabilities of different computer vision API vendors, found here: 
