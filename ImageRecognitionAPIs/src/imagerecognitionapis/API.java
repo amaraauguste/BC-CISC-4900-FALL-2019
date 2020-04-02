@@ -47,10 +47,4 @@ public class API {
         }
     }
     
-    public static int compare (API a){
-        int count = 0;
-        
-        
-        return count;
-    }
 }
