@@ -16,3 +16,7 @@ and save in 'info' folder (once again, if saving in notepad, deselect 'word wrap
 6. If amount of APIs evaluated is greater than one, ranks the APIs based on descending accuracy and states the most and least accurate APIs and their percentages.
 7. Computes accuracy percentage per API and average number of tags provided per image from each API and creates a bar chart displaying the results, saving the resulting charts in the 'images' folder as 'percentageChart.png' and 'averageChart.png' respectively.
 8. Displays all resulting data to output.txt file and output.html file in the html format from the template.html file. 
+
+04_14_2020: Update ImageRecognitionAPIs.java
+- Added modifications to allow for customizable output file name(s) or to directions to use defaults ('output.txt' and 'output.html')
+- Added removeDuplicates method that converts String of tags from user's manual evaluation to LInkedHashSet, thus removing any duplicate terms before reconverting to String [] array and appending to a returning String
