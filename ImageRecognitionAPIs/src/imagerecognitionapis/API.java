@@ -1,4 +1,3 @@
-
 /** 
  * Amara Auguste
  * Used to create an API object which holds the names of
@@ -47,4 +46,16 @@ public class API {
         }
     }
     
+    public static int compare (API a){
+        int count = 0;
+        for(int i = 0; i < imageList.length; i++){
+            if(imageList[i].equals(a.imageList[i])){
+                if(tags[i].equals(a.tags[i])){
+                    count++;
+                }
+            }
+        }
+        
+        return count;
+    }
 }
