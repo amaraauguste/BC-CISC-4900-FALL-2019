@@ -1,5 +1,4 @@
-
-/**
+/** 
  * Amara Auguste
  * Image Recognition API Evaluator:
  * Evaluates the API results from Gaurav Oberoi's Open Source tool --- Cloudy Vision, 
@@ -27,10 +26,20 @@ public class ImageRecognitionAPIs {
     public static char percentSymbol = '%';
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
+       
+        //allow for customizable output file name(s)
+        Scanner k = new Scanner(System.in);
+        System.out.print("What would you like to name your output file(s)?\nEnter name here (Enter 'N/A' or 'n/a' to use default name): ");
+        String title = k.nextLine();
+        if(title.equalsIgnoreCase("N/A")){
+            title = "output";
+        }
+        k.close();
+        
         //place names of all images to be evaluated in "images.txt" 
         File imageList = new File("info/images.txt");
         Scanner sc = new Scanner(imageList);
-        PrintWriter p = new PrintWriter("output.txt");
+        PrintWriter p = new PrintWriter(title + ".txt");
         ArrayList<Object> images = new ArrayList<>();
         while (sc.hasNext()) {
             images.add(sc.next());//read image names into arraylist
@@ -48,10 +57,11 @@ public class ImageRecognitionAPIs {
         File manualFile = new File("info/manualResults.txt");
         Scanner manual = new Scanner(manualFile);
         Map<String, String> manualEvaluation = new LinkedHashMap<>();//stores manual results for APIs to compare to
-        String imageName = "";
+        //String imageName = "";
         while (manual.hasNext()) {
-            imageName = manual.next();//key
-            String s = manual.nextLine();//value
+            String imageName = manual.next();//key
+            String temp = manual.nextLine();//
+            String s = removeDuplicates(temp);
             manualEvaluation.put(imageName, s);
         }
 
@@ -59,11 +69,25 @@ public class ImageRecognitionAPIs {
 
         htmlString = evaluateAPIs(imagesArray, manualEvaluation, p, htmlString);//evaluates all .txt files in the 'vendors' folder
 
-        File newHtmlFile = new File("output.html");//html output file
+        File newHtmlFile = new File(title + ".html");//html output file
         FileUtils.writeStringToFile(newHtmlFile, htmlString);//writes to html
         p.close();
     }//end of main
 
+    /**
+     * Removes duplicate words/strings found in manual evaluations by converting to LinkedHashSet  
+     */
+    public static String removeDuplicates(String temp){
+        String [] terms = temp.split("//W+");
+        LinkedHashSet<String> lhs = new LinkedHashSet<> (Arrays.asList(terms));
+        Object [] noDuplicates = lhs.toArray();
+        String s = "";
+        for(int i = 0; i < noDuplicates.length; i++){
+            s += noDuplicates[i];
+        }
+        return s;
+    }
+    
     /**
      * Iterates through the 'vendors' directory and compares the manual results to the results from each API .txt file, calling containsExact to determine
      * whether or not the tags match and keeping count of tags that match, printing results to an output file.
@@ -94,7 +118,8 @@ public class ImageRecognitionAPIs {
                 for (int j = 0; j < images.length; j++) {//runs for each image to be evaluated
                     if (m.containsKey(API_List[i].getImage(j))) {//if image name exists in manual evaluation
                         String temp = m.get(API_List[i].getImage(j));//returns the string of tags found in manual evaluation 
-                        String[] words = temp.split("\\W+");//split tags into array
+                        String s = removeDuplicates(temp);
+                        String[] words = s.split("\\W+");//split tags into array
                         for (int k = 0; k < words.length; k++) {//iterate through array of tags
                             if (containsExact(API_List[i].getTags(j), words[k])) {
                                 countResults[i]++;//increment counter
