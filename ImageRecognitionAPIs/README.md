@@ -19,4 +19,4 @@ and save in 'info' folder (once again, if saving in notepad, deselect 'word wrap
 
 04_14_2020: Update ImageRecognitionAPIs.java
 - Added modifications to allow for customizable output file name(s) or to directions to use defaults ('output.txt' and 'output.html')
-- Added removeDuplicates method that converts String of tags from user's manual evaluation to LInkedHashSet, thus removing any duplicate terms before reconverting to String [] array and appending to a returning String
+- Added removeDuplicates method that converts String of tags from user's manual evaluation to LinkedHashSet, thus removing any duplicate terms before reconverting to String [] array and appending to a returning String
